@@ -26,7 +26,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=[
+        "http://localhost:3000", # Keeps your local testing working
+        "https://calibrafit.vercel.app" # Your live Next.js frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
