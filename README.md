@@ -1,6 +1,6 @@
-# 💪 CalibraFit — Virtual Personal Trainer
+# 💪 CalibraFit - Virtual Personal Trainer
 
-A full-stack fitness web application that generates **highly personalized 30-day workout plans** based on comprehensive user profiling — demographics, medical history, fitness experience, and available equipment.
+A full-stack fitness web application that generates **highly personalized 30-day workout plans** based on comprehensive user profiling - demographics, medical history, fitness experience, and available equipment.
 
 ## Tech Stack
 
@@ -56,12 +56,12 @@ CalibraFit/
 
 ## Key Features
 
-- 🏋️ **Personalized Plans** — 30-day workout plans tailored to your fitness level
-- 🩺 **Medical Safety** — Smart engine filters unsafe exercises based on medical history
-- 🎬 **Animated Demos** — Exercise demonstrations with Lottie animations
-- 📊 **Progress Tracking** — Streak counters, completion logs, visual progress
-- 🔒 **Secure** — JWT auth, encrypted medical data, HIPAA-aware design
+- 🏋️ **Personalized Plans** - 30-day workout plans tailored to your fitness level
+- 🩺 **Medical Safety** - Smart engine filters unsafe exercises based on medical history
+- 🎬 **Animated Demos** - Exercise demonstrations with Lottie animations
+- 📊 **Progress Tracking** - Streak counters, completion logs, visual progress
+- 🔒 **Secure** - JWT auth, encrypted medical data, HIPAA-aware design
 
 ## License
 
-Private — All rights reserved.
+Private - All rights reserved.
