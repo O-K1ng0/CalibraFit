@@ -7,8 +7,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
-from app.db.database import create_tables
+from app.db.database import create_tables, SessionLocal
+from app.db.models import Exercise
 from app.api import auth, user, workout
+
+# Import seed data (ensure it's in python path)
+try:
+    from seed_exercises import EXERCISES
+except ImportError:
+    import sys, os
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+    from seed_exercises import EXERCISES
 
 settings = get_settings()
 
@@ -45,9 +54,23 @@ app.include_router(workout.router)
 
 @app.on_event("startup")
 def on_startup():
-    """Create database tables on startup (development mode)."""
+    """Create database tables on startup and seed if necessary."""
     if settings.DEBUG:
         create_tables()
+        
+    # Auto-seed the database if exercises table is empty
+    with SessionLocal() as db:
+        if db.query(Exercise).count() == 0:
+            print("Exercises table is empty. Auto-seeding database...")
+            for ex_data in EXERCISES:
+                exercise = Exercise(**ex_data)
+                db.add(exercise)
+            try:
+                db.commit()
+                print(f"Successfully seeded {len(EXERCISES)} exercises.")
+            except Exception as e:
+                db.rollback()
+                print(f"Error seeding database: {e}")
 
 
 # ─── Health Check ────────────────────────────────────────────

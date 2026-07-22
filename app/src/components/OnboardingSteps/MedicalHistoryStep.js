@@ -123,7 +123,7 @@ export default function MedicalHistoryStep({ data, onUpdate }) {
       <div>
         <label className="input-label">Past Surgeries</label>
         <div className="flex flex-wrap gap-2 mb-2">
-          {SURGERY_OPTIONS.map((surgery) => (
+          {Array.from(new Set([...SURGERY_OPTIONS, ...(data.past_surgeries || [])])).map((surgery) => (
             <button
               key={surgery}
               type="button"

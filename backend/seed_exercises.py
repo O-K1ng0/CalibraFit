@@ -710,6 +710,2633 @@ def seed_exercises():
         db.close()
 
 
+NEW_EXERCISES = [
+    {
+        "name": "Incline Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bodyweight Press",
+        "description": "A bodyweight variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bodyweight Fly",
+        "description": "A bodyweight variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bodyweight Push-Up",
+        "description": "A bodyweight variation of the Push-Up targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bodyweight Pullover",
+        "description": "A bodyweight variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Dumbbells Press",
+        "description": "A dumbbells variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Dumbbells Fly",
+        "description": "A dumbbells variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Dumbbells Pullover",
+        "description": "A dumbbells variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "dumbbells"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Barbell Press",
+        "description": "A barbell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Barbell Fly",
+        "description": "A barbell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Barbell Pullover",
+        "description": "A barbell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "barbell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Kettlebell Press",
+        "description": "A kettlebell variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Kettlebell Fly",
+        "description": "A kettlebell variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Kettlebell Pullover",
+        "description": "A kettlebell variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "kettlebell"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bands Press",
+        "description": "A bands variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bands Fly",
+        "description": "A bands variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Bands Pullover",
+        "description": "A bands variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bands"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Cable Press",
+        "description": "A cable variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Cable Fly",
+        "description": "A cable variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Cable Pullover",
+        "description": "A cable variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "cable"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Standing Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Arm Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Single-Leg Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Weighted Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Banded Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 1,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Machine Press",
+        "description": "A machine variation of the Press targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Machine Fly",
+        "description": "A machine variation of the Fly targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Explosive Machine Pullover",
+        "description": "A machine variation of the Pullover targeting the chest.",
+        "target_muscle_primary": "chest",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "machine"
+        ],
+        "difficulty": 2,
+        "strain_areas": [],
+        "environment": "gym",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Row",
+        "description": "A bodyweight variation of the Row targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Pulldown",
+        "description": "A bodyweight variation of the Pulldown targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "shoulder_injury",
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Pull-Up",
+        "description": "A bodyweight variation of the Pull-Up targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Incline Bodyweight Deadlift",
+        "description": "A bodyweight variation of the Deadlift targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Row",
+        "description": "A bodyweight variation of the Row targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Pulldown",
+        "description": "A bodyweight variation of the Pulldown targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "shoulder_injury",
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Pull-Up",
+        "description": "A bodyweight variation of the Pull-Up targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Decline Bodyweight Deadlift",
+        "description": "A bodyweight variation of the Deadlift targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Row",
+        "description": "A bodyweight variation of the Row targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    },
+    {
+        "name": "Seated Bodyweight Pulldown",
+        "description": "A bodyweight variation of the Pulldown targeting the back.",
+        "target_muscle_primary": "back",
+        "target_muscle_secondary": [],
+        "equipment_required": [
+            "bodyweight"
+        ],
+        "difficulty": 1,
+        "strain_areas": [
+            "shoulder_injury",
+            "lower_back_pain"
+        ],
+        "environment": "home",
+        "animation_url": ""
+    }
+]
+EXERCISES.extend(NEW_EXERCISES)
+
 if __name__ == "__main__":
     print("🌱 Seeding CalibraFit exercise database...")
     create_tables()
