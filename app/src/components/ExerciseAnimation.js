@@ -28,12 +28,20 @@ export default function ExerciseAnimation({ animationUrl, exerciseName }) {
       });
   }
 
-  // Fallback placeholder when no animation is available
+  // Fallback to dynamic YouTube search for exercise tutorial
   if (!animationUrl || error) {
+    const searchQuery = encodeURIComponent(`${exerciseName} exercise form tutorial`);
     return (
-      <div className="w-full h-40 rounded-xl bg-gradient-to-br from-primary-600/10 to-accent-500/10 flex flex-col items-center justify-center border border-white/5">
-        <span className="text-4xl mb-2">🏋️</span>
-        <p className="text-xs text-slate-500">{exerciseName}</p>
+      <div className="w-full h-48 rounded-xl overflow-hidden bg-black/50 border border-white/5">
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed?listType=search&list=${searchQuery}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title={`How to do ${exerciseName}`}
+        ></iframe>
       </div>
     );
   }

@@ -3,7 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { getMe, getProgress, getCurrentPlan, getPlanSummary, logout, isAuthenticated } from "@/lib/api";
+import {
+  getMe, getProgress, getCurrentPlan, getPlanSummary,
+  getFullProfile, getFeedbacks, submitFeedback, logout, isAuthenticated,
+} from "@/lib/api";
 import WorkoutStreaks from "@/components/WorkoutStreaks";
 import ProgressBar from "@/components/ProgressBar";
 
@@ -16,14 +19,33 @@ const MOTIVATIONAL_QUOTES = [
   "Don't limit your challenges. Challenge your limits.",
 ];
 
+const PAIN_AREA_OPTIONS = [
+  "knees", "shoulders", "back", "wrists", "hips", "neck", "ankles", "elbows",
+];
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [progress, setProgress] = useState(null);
   const [planSummary, setPlanSummary] = useState(null);
   const [plan, setPlan] = useState(null);
+  const [profileData, setProfileData] = useState(null);
+  const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quote] = useState(() => MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)]);
+
+  // Weekly Feedback Form State
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackForm, setFeedbackForm] = useState({
+    difficulty_rating: 2,
+    energy_level: 3,
+    pros: "",
+    cons: "",
+    new_pain_areas: [],
+    overall_satisfaction: 3,
+  });
+  const [feedbackSubmitting, setFeedbackSubmitting] = useState(false);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -35,15 +57,19 @@ export default function DashboardPage() {
 
   const loadDashboard = async () => {
     try {
-      const [userData, progressData, planData] = await Promise.allSettled([
+      const [userData, progressData, planData, profileRes, feedbackRes] = await Promise.allSettled([
         getMe(),
         getProgress(),
         getCurrentPlan(),
+        getFullProfile(),
+        getFeedbacks(),
       ]);
 
       if (userData.status === "fulfilled") setUser(userData.value);
       if (progressData.status === "fulfilled") setProgress(progressData.value);
       if (planData.status === "fulfilled") setPlan(planData.value);
+      if (profileRes.status === "fulfilled") setProfileData(profileRes.value);
+      if (feedbackRes.status === "fulfilled") setFeedbacks(feedbackRes.value);
     } catch (err) {
       console.error("Dashboard load error:", err);
     } finally {
@@ -53,6 +79,45 @@ export default function DashboardPage() {
 
   const today = new Date().toISOString().split("T")[0];
   const todayWorkout = plan?.daily_workouts?.find((d) => d.date === today);
+
+  // ── Nutrition Calculations (Mifflin-St Jeor) ──
+  const profile = profileData?.profile || {};
+  const weight = parseFloat(profile.weight_kg) || 70;
+  const height = parseFloat(profile.height_cm) || 170;
+  const age = parseInt(profile.age) || 25;
+  const bmr = Math.round(10 * weight + 6.25 * height - 5 * age + 5); // Male default
+  const activityMultiplier = profile.fitness_experience === "expert" ? 1.725 : profile.fitness_experience === "moderate" ? 1.55 : 1.375;
+  const tdee = Math.round(bmr * activityMultiplier);
+  const todayExerciseCount = todayWorkout?.routine?.length || 0;
+  const estimatedCalsBurned = Math.round(todayExerciseCount * 5.5 * (weight / 70) * 8); // ~8 min per exercise, MET ~5.5
+
+  const proteinG = Math.round(weight * 1.8);
+  const fatG = Math.round((tdee * 0.25) / 9);
+  const carbG = Math.round((tdee - proteinG * 4 - fatG * 9) / 4);
+
+  // ── Weekly Feedback Logic ──
+  const currentWeek = plan ? Math.ceil((new Date(today) - new Date(plan.start_date)) / (7 * 24 * 60 * 60 * 1000)) : 0;
+  const alreadySubmitted = feedbacks.some((f) => f.week_number === currentWeek);
+  const showCheckIn = plan && currentWeek >= 1 && !alreadySubmitted;
+
+  const handleFeedbackSubmit = async () => {
+    setFeedbackSubmitting(true);
+    try {
+      await submitFeedback({
+        plan_id: plan.plan_id,
+        week_number: currentWeek,
+        ...feedbackForm,
+      });
+      setFeedbackSubmitted(true);
+      setShowFeedback(false);
+      const updated = await getFeedbacks();
+      setFeedbacks(updated);
+    } catch (err) {
+      console.error("Feedback submit error:", err);
+    } finally {
+      setFeedbackSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -85,14 +150,131 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Streaks Row */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <WorkoutStreaks
-          currentStreak={progress?.current_streak || 0}
-          longestStreak={progress?.longest_streak || 0}
-          workoutsThisWeek={progress?.workouts_this_week || 0}
-        />
-      </div>
+
+      {/* Weekly Check-In Banner */}
+      {showCheckIn && !feedbackSubmitted && (
+        <div className="mb-6 animate-fade-in-up delay-150">
+          <div className="glass-card p-5 border border-primary-500/30">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">📋</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-white">Week {currentWeek} Check-In</h3>
+                  <p className="text-xs text-slate-400">How was your training this week? Your feedback adapts future plans.</p>
+                </div>
+              </div>
+              <button onClick={() => setShowFeedback(!showFeedback)} className="btn-secondary text-xs py-2 px-4">
+                {showFeedback ? "Close" : "Give Feedback"}
+              </button>
+            </div>
+
+            {showFeedback && (
+              <div className="mt-4 space-y-4 border-t border-white/10 pt-4 animate-fade-in">
+                {/* Difficulty Rating */}
+                <div>
+                  <label className="input-label">How did the difficulty feel?</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { val: 1, label: "Too Easy", icon: "😎" },
+                      { val: 2, label: "Just Right", icon: "💪" },
+                      { val: 3, label: "Too Hard", icon: "😰" },
+                    ].map((opt) => (
+                      <button key={opt.val} type="button"
+                        onClick={() => setFeedbackForm({ ...feedbackForm, difficulty_rating: opt.val })}
+                        className={`p-3 rounded-xl border text-center transition-all ${feedbackForm.difficulty_rating === opt.val ? "bg-primary-600/20 border-primary-500/40" : "bg-white/5 border-white/10"}`}
+                      >
+                        <span className="text-xl block">{opt.icon}</span>
+                        <span className="text-xs text-white">{opt.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Energy Level */}
+                <div>
+                  <label className="input-label">Energy Level (1-5)</label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <button key={n} type="button"
+                        onClick={() => setFeedbackForm({ ...feedbackForm, energy_level: n })}
+                        className={`w-10 h-10 rounded-xl border text-sm font-medium transition-all ${feedbackForm.energy_level === n ? "bg-primary-600 border-primary-500 text-white" : "bg-white/5 border-white/10 text-slate-400"}`}
+                      >
+                        {n}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Satisfaction Stars */}
+                <div>
+                  <label className="input-label">Overall Satisfaction</label>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button key={star} type="button"
+                        onClick={() => setFeedbackForm({ ...feedbackForm, overall_satisfaction: star })}
+                        className="text-2xl transition-transform hover:scale-110"
+                      >
+                        {star <= (feedbackForm.overall_satisfaction || 0) ? "⭐" : "☆"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pros & Cons */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="input-label" htmlFor="feedbackPros">Pros</label>
+                    <textarea id="feedbackPros" className="input-field resize-none" rows={2}
+                      placeholder="What went well..."
+                      value={feedbackForm.pros}
+                      onChange={(e) => setFeedbackForm({ ...feedbackForm, pros: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="input-label" htmlFor="feedbackCons">Cons</label>
+                    <textarea id="feedbackCons" className="input-field resize-none" rows={2}
+                      placeholder="What felt off or painful..."
+                      value={feedbackForm.cons}
+                      onChange={(e) => setFeedbackForm({ ...feedbackForm, cons: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                {/* New Pain Areas */}
+                <div>
+                  <label className="input-label">Any new pain areas?</label>
+                  <div className="flex flex-wrap gap-2">
+                    {PAIN_AREA_OPTIONS.map((area) => (
+                      <button key={area} type="button"
+                        onClick={() => {
+                          const current = feedbackForm.new_pain_areas || [];
+                          setFeedbackForm({
+                            ...feedbackForm,
+                            new_pain_areas: current.includes(area) ? current.filter(a => a !== area) : [...current, area],
+                          });
+                        }}
+                        className={`chip ${(feedbackForm.new_pain_areas || []).includes(area) ? "selected" : ""}`}
+                      >
+                        {area}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button onClick={handleFeedbackSubmit} disabled={feedbackSubmitting} className="btn-primary w-full">
+                  {feedbackSubmitting ? "Submitting..." : "Submit Week " + currentWeek + " Feedback ✓"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {feedbackSubmitted && (
+        <div className="mb-6 p-3 rounded-lg bg-success-500/10 border border-success-500/20 text-success-400 text-sm animate-fade-in">
+          ✓ Week {currentWeek} feedback submitted! Your next plan will adapt to your responses.
+        </div>
+      )}
 
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -115,6 +297,11 @@ export default function DashboardPage() {
                   <span className="text-sm text-slate-400">
                     {todayWorkout.routine?.length || 0} exercises
                   </span>
+                  {estimatedCalsBurned > 0 && (
+                    <span className="text-sm text-energy-400">
+                      ~{estimatedCalsBurned} cal
+                    </span>
+                  )}
                 </div>
 
                 {/* Exercise Preview */}
@@ -166,41 +353,6 @@ export default function DashboardPage() {
 
         {/* Sidebar Stats */}
         <div className="space-y-6 animate-fade-in-up delay-300">
-          {/* Completion Rate */}
-          <div className="glass-card p-5">
-            <h3 className="text-sm font-medium text-slate-400 mb-3">Completion Rate</h3>
-            <div className="flex items-center gap-4">
-              {/* Circular Progress */}
-              <div className="relative w-16 h-16 shrink-0">
-                <svg className="w-16 h-16" viewBox="0 0 64 64">
-                  <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
-                  <circle
-                    cx="32" cy="32" r="28"
-                    fill="none"
-                    stroke="url(#grad)"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeDasharray={`${2 * Math.PI * 28}`}
-                    strokeDashoffset={`${2 * Math.PI * 28 * (1 - (progress?.completion_rate || 0) / 100)}`}
-                    className="progress-ring-circle"
-                  />
-                  <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#0d6efd" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm font-bold text-white">{Math.round(progress?.completion_rate || 0)}%</span>
-                </div>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{progress?.total_workouts_completed || 0}</p>
-                <p className="text-xs text-slate-500">Workouts Done</p>
-              </div>
-            </div>
-          </div>
 
           {/* Plan Overview */}
           {plan && (
@@ -289,6 +441,9 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+
     </main>
   );
 }
+

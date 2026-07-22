@@ -9,12 +9,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from app.db.database import get_db
-from app.db.models import User, WorkoutPlan, DailyWorkout, CompletedWorkout
+from app.db.models import User, WorkoutPlan, DailyWorkout, CompletedWorkout, WeeklyFeedback, UserProfile, MedicalHistory
 from app.schemas.workout import (
     WorkoutPlanResponse, WorkoutPlanSummary,
     DailyWorkoutResponse, ExerciseInRoutine,
     WorkoutCompletionCreate, WorkoutCompletionResponse,
     ProgressResponse, GeneratePlanRequest,
+    WeeklyFeedbackCreate, WeeklyFeedbackResponse,
 )
 from app.core.security import get_current_user
 from app.core.workout_generator import generate_workout_plan
@@ -321,4 +322,167 @@ def get_progress(
         workouts_this_week=workouts_this_week,
         completion_rate=min(completion_rate, 100.0),
         recent_completions=[WorkoutCompletionResponse.model_validate(c) for c in recent],
+    )
+
+
+# ─── Weekly Feedback ────────────────────────────────────────
+
+@router.post("/feedback", response_model=WeeklyFeedbackResponse, status_code=status.HTTP_201_CREATED)
+def submit_feedback(
+    feedback: WeeklyFeedbackCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Submit weekly check-in feedback."""
+    # Prevent duplicate feedback for the same week and plan
+    existing = db.query(WeeklyFeedback).filter(
+        WeeklyFeedback.user_id == current_user.user_id,
+        WeeklyFeedback.week_number == feedback.week_number,
+        WeeklyFeedback.plan_id == feedback.plan_id,
+    ).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Feedback for week {feedback.week_number} already submitted."
+        )
+
+    fb = WeeklyFeedback(
+        user_id=current_user.user_id,
+        plan_id=feedback.plan_id,
+        week_number=feedback.week_number,
+        difficulty_rating=feedback.difficulty_rating,
+        energy_level=feedback.energy_level,
+        pros=feedback.pros,
+        cons=feedback.cons,
+        new_pain_areas=feedback.new_pain_areas,
+        overall_satisfaction=feedback.overall_satisfaction,
+    )
+    db.add(fb)
+    db.commit()
+    db.refresh(fb)
+    return fb
+
+
+@router.get("/feedback", response_model=list[WeeklyFeedbackResponse])
+def get_feedbacks(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Get all weekly feedbacks for the current user's latest plan."""
+    plan = (
+        db.query(WorkoutPlan)
+        .filter(WorkoutPlan.user_id == current_user.user_id)
+        .order_by(WorkoutPlan.generated_at.desc())
+        .first()
+    )
+    if not plan:
+        return []
+
+    feedbacks = (
+        db.query(WeeklyFeedback)
+        .filter(
+            WeeklyFeedback.user_id == current_user.user_id,
+            WeeklyFeedback.plan_id == plan.plan_id,
+        )
+        .order_by(WeeklyFeedback.week_number)
+        .all()
+    )
+    return [WeeklyFeedbackResponse.model_validate(f) for f in feedbacks]
+
+
+@router.post("/adaptive-regenerate", response_model=WorkoutPlanSummary)
+def adaptive_regenerate(
+    request: GeneratePlanRequest = GeneratePlanRequest(),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Regenerate a plan using weekly feedback to adapt difficulty.
+    Analyzes all feedback from the previous plan:
+      - If avg difficulty_rating < 1.5 → upgrade fitness level
+      - If avg difficulty_rating > 2.5 → downgrade fitness level
+      - If new_pain_areas reported → add contraindication flags
+    """
+    # Get latest plan's feedbacks
+    latest_plan = (
+        db.query(WorkoutPlan)
+        .filter(WorkoutPlan.user_id == current_user.user_id)
+        .order_by(WorkoutPlan.generated_at.desc())
+        .first()
+    )
+
+    profile = db.query(UserProfile).filter(UserProfile.user_id == current_user.user_id).first()
+    medical = db.query(MedicalHistory).filter(MedicalHistory.profile_id == profile.profile_id).first() if profile else None
+
+    if latest_plan and profile:
+        feedbacks = (
+            db.query(WeeklyFeedback)
+            .filter(
+                WeeklyFeedback.user_id == current_user.user_id,
+                WeeklyFeedback.plan_id == latest_plan.plan_id,
+            ).all()
+        )
+
+        if feedbacks:
+            avg_difficulty = sum(f.difficulty_rating for f in feedbacks) / len(feedbacks)
+            levels = ["beginner", "moderate", "expert"]
+            current_idx = levels.index(profile.fitness_experience or "beginner")
+
+            # Adapt difficulty level
+            if avg_difficulty < 1.5 and current_idx < 2:
+                profile.fitness_experience = levels[current_idx + 1]
+            elif avg_difficulty > 2.5 and current_idx > 0:
+                profile.fitness_experience = levels[current_idx - 1]
+
+            # Collect new pain areas from feedback and add to medical contraindications
+            if medical:
+                pain_map = {
+                    "knees": "knee_injury", "knee": "knee_injury",
+                    "shoulders": "shoulder_injury", "shoulder": "shoulder_injury",
+                    "back": "lower_back_pain", "lower back": "lower_back_pain",
+                    "wrists": "wrist_injury", "wrist": "wrist_injury",
+                    "hips": "hip_replacement", "hip": "hip_replacement",
+                    "neck": "neck_issues",
+                    "ankles": "ankle_injury", "ankle": "ankle_injury",
+                }
+                existing_flags = set(medical.contraindication_flags or [])
+                for f in feedbacks:
+                    for area in (f.new_pain_areas or []):
+                        flag = pain_map.get(area.lower())
+                        if flag:
+                            existing_flags.add(flag)
+                    # Also parse the cons text for pain keywords
+                    if f.cons:
+                        cons_lower = f.cons.lower()
+                        for keyword, flag in pain_map.items():
+                            if keyword in cons_lower:
+                                existing_flags.add(flag)
+                medical.contraindication_flags = list(existing_flags)
+
+            db.commit()
+
+    # Now generate the new plan with the adapted profile
+    try:
+        plan = generate_workout_plan(
+            db=db,
+            user=current_user,
+            start_date=request.start_date,
+            duration_days=request.duration_days,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+    daily_workouts = db.query(DailyWorkout).filter(DailyWorkout.plan_id == plan.plan_id).all()
+    workout_days = sum(1 for d in daily_workouts if d.day_type != "Rest")
+    rest_days = sum(1 for d in daily_workouts if d.day_type == "Rest")
+
+    return WorkoutPlanSummary(
+        plan_id=plan.plan_id,
+        user_id=plan.user_id,
+        start_date=plan.start_date,
+        end_date=plan.end_date,
+        generated_at=plan.generated_at,
+        total_days=len(daily_workouts),
+        workout_days=workout_days,
+        rest_days=rest_days,
     )

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import MedicalHistoryStep from "@/components/OnboardingSteps/MedicalHistoryStep";
 import {
   getFullProfile, updateProfile, updateMedicalHistory,
   generatePlan, isAuthenticated,
@@ -31,6 +32,7 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [planDuration, setPlanDuration] = useState(30);
 
   // Editable copies
   const [editProfile, setEditProfile] = useState({});
@@ -79,7 +81,7 @@ export default function ProfilePage() {
   const handleRegenerate = async () => {
     setSaving(true);
     try {
-      await generatePlan({ duration_days: 30 });
+      await generatePlan({ duration_days: planDuration });
       router.push("/dashboard");
     } catch (err) {
       console.error("Plan generation error:", err);
@@ -232,44 +234,62 @@ export default function ProfilePage() {
         {activeTab === "medical" && (
           <div className="space-y-4">
             <h2 className="text-lg font-semibold text-white mb-4">Medical History</h2>
-            <div className="glass-card p-3 flex items-center gap-3 text-xs text-slate-400 mb-4">
-              <span>🔒</span>
-              <p>Your medical data is stored securely and encrypted.</p>
-            </div>
-            <div>
-              <label className="input-label">Pain Areas</label>
-              <div className="flex flex-wrap gap-1.5">
-                {(medical.pain_areas || []).length > 0 ? medical.pain_areas.map((area) => (
-                  <span key={area} className="chip selected">{area.replace(/_/g, " ")}</span>
-                )) : <p className="text-sm text-slate-500">None reported</p>}
-              </div>
-            </div>
-            <div>
-              <label className="input-label">Past Surgeries</label>
-              <div className="flex flex-wrap gap-1.5">
-                {(medical.past_surgeries || []).length > 0 ? medical.past_surgeries.map((s) => (
-                  <span key={s} className="chip">{s}</span>
-                )) : <p className="text-sm text-slate-500">None reported</p>}
-              </div>
-            </div>
-            <div>
-              <label className="input-label">Chronic Conditions</label>
-              <div className="flex flex-wrap gap-1.5">
-                {(medical.chronic_diseases || []).length > 0 ? medical.chronic_diseases.map((d) => (
-                  <span key={d} className="chip">{d}</span>
-                )) : <p className="text-sm text-slate-500">None reported</p>}
-              </div>
-            </div>
-            <div>
-              <label className="input-label">Active Safety Filters</label>
-              <div className="flex flex-wrap gap-1.5">
-                {(medical.contraindication_flags || []).length > 0 ? medical.contraindication_flags.map((f) => (
-                  <span key={f} className="px-2 py-1 rounded-full bg-danger-500/15 text-danger-400 text-xs font-medium">
-                    {f.replace(/_/g, " ")}
-                  </span>
-                )) : <p className="text-sm text-slate-500">No active filters</p>}
-              </div>
-            </div>
+            {editing ? (
+              <MedicalHistoryStep 
+                data={editMedical} 
+                onUpdate={(newData) => setEditMedical({ ...editMedical, ...newData })} 
+                hideHeader={true}
+              />
+            ) : (
+              <>
+                <div className="glass-card p-3 flex items-center gap-3 text-xs text-slate-400 mb-4">
+                  <span>🔒</span>
+                  <p>Your medical data is stored securely and encrypted.</p>
+                </div>
+                <div>
+                  <label className="input-label">Pain Areas</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(medical.pain_areas || []).length > 0 ? medical.pain_areas.map((area) => (
+                      <span key={area} className="chip selected">{area.replace(/_/g, " ")}</span>
+                    )) : <p className="text-sm text-slate-500">None reported</p>}
+                  </div>
+                </div>
+                <div>
+                  <label className="input-label">Past Surgeries</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(medical.past_surgeries || []).length > 0 ? medical.past_surgeries.map((s) => (
+                      <span key={s} className="chip">{s}</span>
+                    )) : <p className="text-sm text-slate-500">None reported</p>}
+                  </div>
+                </div>
+                <div>
+                  <label className="input-label">Chronic Conditions</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(medical.chronic_diseases || []).length > 0 ? medical.chronic_diseases.map((d) => (
+                      <span key={d} className="chip">{d}</span>
+                    )) : <p className="text-sm text-slate-500">None reported</p>}
+                  </div>
+                </div>
+                <div>
+                  <label className="input-label">Active Safety Filters</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(medical.contraindication_flags || []).length > 0 ? medical.contraindication_flags.map((f) => (
+                      <span key={f} className="px-2 py-1 rounded-full bg-danger-500/15 text-danger-400 text-xs font-medium">
+                        {f.replace(/_/g, " ")}
+                      </span>
+                    )) : <p className="text-sm text-slate-500">No active filters</p>}
+                  </div>
+                </div>
+                {medical.notes && (
+                  <div>
+                    <label className="input-label">Additional Notes</label>
+                    <div className="glass-card p-3">
+                      <p className="text-sm text-slate-300">{medical.notes}</p>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         )}
 
@@ -373,14 +393,26 @@ export default function ProfilePage() {
       </div>
 
       {/* Regenerate Plan */}
-      {editing && (
+      {!editing && (
         <div className="mt-6 glass-card p-4 animate-fade-in">
           <p className="text-sm text-slate-400 mb-3">
-            After saving profile changes, you can regenerate your workout plan to reflect the updates.
+            Want to refresh your routine or apply recent profile changes?
           </p>
-          <button onClick={handleRegenerate} disabled={saving} className="btn-primary w-full">
-            {saving ? "Generating..." : "Regenerate 30-Day Plan 🔄"}
-          </button>
+          <div className="flex gap-3 items-center">
+            <select
+              className="input-field flex-shrink-0"
+              style={{ width: "auto", minWidth: "140px" }}
+              value={planDuration}
+              onChange={(e) => setPlanDuration(parseInt(e.target.value))}
+            >
+              <option value={30}>30-Day Plan</option>
+              <option value={60}>60-Day Plan</option>
+              <option value={90}>90-Day Plan</option>
+            </select>
+            <button onClick={handleRegenerate} disabled={saving} className="btn-primary flex-1">
+              {saving ? "Generating..." : "Regenerate Plan 🔄"}
+            </button>
+          </div>
         </div>
       )}
     </main>

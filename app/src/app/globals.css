@@ -177,6 +177,11 @@ body {
   outline: none;
 }
 
+select.input-field option {
+  background-color: var(--color-surface-900);
+  color: #e2e8f0;
+}
+
 .input-field::placeholder {
   color: #64748b;
 }
@@ -419,4 +424,42 @@ body {
   font-size: 1.75rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* ─── Print Styles for PDF Generation ────────────────────── */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .glass-card {
+    background: transparent !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: black !important;
+    page-break-inside: avoid;
+  }
+  
+  .glass-card * {
+    color: black !important;
+  }
+  
+  /* Hide non-essential UI elements */
+  nav, button, .btn-primary, .btn-secondary, iframe, video {
+    display: none !important;
+  }
+  
+  /* Typography tweaks for print */
+  h1, h2, h3 {
+    color: black !important;
+  }
+  
+  /* Ensure backgrounds of chips or tags print clearly */
+  .chip {
+    border-color: #999 !important;
+    color: black !important;
+  }
 }

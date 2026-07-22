@@ -175,9 +175,18 @@ export default function WorkoutPage({ params }) {
             <h1 className="text-2xl font-bold text-white">{workout?.day_type} Day</h1>
             <p className="text-sm text-slate-400 mt-1">{formattedDate}</p>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-semibold gradient-primary text-white">
-            {workout?.routine?.length || 0} exercises
-          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => window.print()}
+              className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1"
+            >
+              <span>📄</span>
+              <span className="hidden sm:inline">Download PDF</span>
+            </button>
+            <span className="px-3 py-1 rounded-full text-xs font-semibold gradient-primary text-white">
+              {workout?.routine?.length || 0} exercises
+            </span>
+          </div>
         </div>
       </div>
 

@@ -154,4 +154,21 @@ export async function getProgress() {
   return res.data;
 }
 
+// ─── Weekly Feedback ────────────────────────────────────────
+
+export async function submitFeedback(feedbackData) {
+  const res = await api.post("/api/workout/feedback", feedbackData);
+  return res.data;
+}
+
+export async function getFeedbacks() {
+  const res = await api.get("/api/workout/feedback");
+  return res.data;
+}
+
+export async function adaptiveRegenerate(options = {}) {
+  const res = await api.post("/api/workout/adaptive-regenerate", options);
+  return res.data;
+}
+
 export default api;

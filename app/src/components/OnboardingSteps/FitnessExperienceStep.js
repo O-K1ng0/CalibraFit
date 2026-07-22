@@ -77,16 +77,22 @@ export default function FitnessExperienceStep({ data, onUpdate }) {
 
       {/* Time Since Last Workout */}
       <div>
-        <label className="input-label" htmlFor="lastWorkout">Days Since Last Workout</label>
-        <input
+        <label className="input-label" htmlFor="lastWorkout">Time Since Last Workout</label>
+        <select
           id="lastWorkout"
-          type="number"
           className="input-field"
-          placeholder="30"
-          min={0}
-          value={data.time_since_last_workout_days || ""}
-          onChange={(e) => onUpdate({ time_since_last_workout_days: parseInt(e.target.value) || 0 })}
-        />
+          value={data.time_since_last_workout_days || 0}
+          onChange={(e) => onUpdate({ time_since_last_workout_days: parseInt(e.target.value) })}
+        >
+          <option value={0}>Currently active</option>
+          <option value={7}>Less than a week</option>
+          <option value={30}>About a month</option>
+          <option value={60}>1–3 months</option>
+          <option value={135}>3–6 months</option>
+          <option value={270}>6–12 months</option>
+          <option value={545}>1–2 years</option>
+          <option value={1000}>More than 2 years</option>
+        </select>
       </div>
 
       {/* Optional Metrics */}

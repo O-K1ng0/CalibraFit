@@ -26,6 +26,7 @@ class User(Base):
     profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     workout_plans = relationship("WorkoutPlan", back_populates="user", cascade="all, delete-orphan")
     completed_workouts = relationship("CompletedWorkout", back_populates="user", cascade="all, delete-orphan")
+    weekly_feedbacks = relationship("WeeklyFeedback", back_populates="user", cascade="all, delete-orphan")
 
 
 class UserProfile(Base):
@@ -141,3 +142,28 @@ class CompletedWorkout(Base):
     # Relationships
     user = relationship("User", back_populates="completed_workouts")
     daily_workout = relationship("DailyWorkout", back_populates="completions")
+
+
+class WeeklyFeedback(Base):
+    """Stores weekly check-in feedback from the user for adaptive plan regeneration."""
+    __tablename__ = "weekly_feedbacks"
+
+    feedback_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False, index=True)
+    plan_id = Column(Integer, ForeignKey("workout_plans.plan_id", ondelete="CASCADE"), nullable=True)
+    week_number = Column(Integer, nullable=False)  # 1, 2, 3, 4...
+    difficulty_rating = Column(Integer, nullable=False)  # 1=Too Easy, 2=Just Right, 3=Too Hard
+    energy_level = Column(Integer, nullable=True)  # 1-5
+    pros = Column(Text, nullable=True)
+    cons = Column(Text, nullable=True)
+    new_pain_areas = Column(JSON, default=list)  # e.g., ["knees", "shoulders"]
+    overall_satisfaction = Column(Integer, nullable=True)  # 1-5 stars
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+
+    __table_args__ = (
+        CheckConstraint("difficulty_rating >= 1 AND difficulty_rating <= 3", name="check_difficulty_rating"),
+        CheckConstraint("week_number >= 1", name="check_week_number"),
+    )
+
+    # Relationships
+    user = relationship("User", back_populates="weekly_feedbacks")

@@ -25,12 +25,13 @@ const PAIN_AREAS = [
   { id: "elbows", label: "Elbows", icon: "💪" },
 ];
 
-// Maps pain areas and conditions to contraindication flags
+// Maps pain areas, conditions, and free-text notes to contraindication flags
 function deriveContraindicationFlags(medicalData) {
   const flags = new Set();
   const painAreas = medicalData.pain_areas || [];
   const surgeries = medicalData.past_surgeries || [];
   const diseases = medicalData.chronic_diseases || [];
+  const notes = (medicalData.notes || "").toLowerCase();
 
   if (painAreas.includes("lower_back")) flags.add("lower_back_pain");
   if (painAreas.includes("knees")) flags.add("knee_injury");
@@ -51,10 +52,26 @@ function deriveContraindicationFlags(medicalData) {
   if (diseases.includes("Arthritis")) flags.add("joint_pain");
   if (diseases.includes("Osteoporosis")) flags.add("spinal_issues");
 
+  // Parse free-text notes for injury/pain keywords
+  const noteKeywords = {
+    "knee": "knee_injury", "knees": "knee_injury",
+    "shoulder": "shoulder_injury", "shoulders": "shoulder_injury",
+    "back": "lower_back_pain", "lower back": "lower_back_pain", "spine": "spinal_issues", "spinal": "spinal_issues",
+    "wrist": "wrist_injury", "wrists": "wrist_injury",
+    "hip": "hip_replacement", "hips": "hip_replacement",
+    "neck": "neck_issues",
+    "ankle": "ankle_injury", "ankles": "ankle_injury",
+    "heart": "heart_condition", "cardiac": "heart_condition",
+    "joint": "joint_pain", "arthritis": "joint_pain",
+  };
+  for (const [keyword, flag] of Object.entries(noteKeywords)) {
+    if (notes.includes(keyword)) flags.add(flag);
+  }
+
   return Array.from(flags);
 }
 
-export default function MedicalHistoryStep({ data, onUpdate }) {
+export default function MedicalHistoryStep({ data, onUpdate, hideHeader = false }) {
   const [customSurgery, setCustomSurgery] = useState("");
 
   const toggleArrayItem = (field, item) => {
@@ -83,15 +100,17 @@ export default function MedicalHistoryStep({ data, onUpdate }) {
 
   return (
     <div className="space-y-6 animate-fade-in-up">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-danger-500/20 mb-3">
-          <span className="text-2xl">🩺</span>
+      {!hideHeader && (
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-danger-500/20 mb-3">
+            <span className="text-2xl">🩺</span>
+          </div>
+          <h2 className="text-2xl font-bold text-white">Medical History</h2>
+          <p className="text-slate-400 text-sm mt-1">
+            This helps us filter unsafe exercises for you
+          </p>
         </div>
-        <h2 className="text-2xl font-bold text-white">Medical History</h2>
-        <p className="text-slate-400 text-sm mt-1">
-          This helps us filter unsafe exercises for you
-        </p>
-      </div>
+      )}
 
       {/* Privacy Notice */}
       <div className="glass-card p-3 flex items-center gap-3 text-xs text-slate-400">

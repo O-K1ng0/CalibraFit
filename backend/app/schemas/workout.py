@@ -106,3 +106,33 @@ class GeneratePlanRequest(BaseModel):
     """Optional overrides when generating a new plan."""
     start_date: Optional[date] = None
     duration_days: int = Field(30, ge=7, le=90)
+
+
+# ─── Weekly Feedback ────────────────────────────────────────
+
+class WeeklyFeedbackCreate(BaseModel):
+    """Submit weekly check-in feedback."""
+    plan_id: Optional[int] = None
+    week_number: int = Field(..., ge=1)
+    difficulty_rating: int = Field(..., ge=1, le=3)  # 1=Too Easy, 2=Just Right, 3=Too Hard
+    energy_level: Optional[int] = Field(None, ge=1, le=5)
+    pros: Optional[str] = None
+    cons: Optional[str] = None
+    new_pain_areas: list[str] = Field(default_factory=list)
+    overall_satisfaction: Optional[int] = Field(None, ge=1, le=5)
+
+
+class WeeklyFeedbackResponse(BaseModel):
+    feedback_id: int
+    user_id: int
+    plan_id: Optional[int] = None
+    week_number: int
+    difficulty_rating: int
+    energy_level: Optional[int] = None
+    pros: Optional[str] = None
+    cons: Optional[str] = None
+    new_pain_areas: list[str] = []
+    overall_satisfaction: Optional[int] = None
+    created_at: Optional[datetime] = None
+
+    model_config = {"from_attributes": True}
