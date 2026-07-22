@@ -35,16 +35,7 @@ def generate_plan(
     Generate a personalized workout plan for the authenticated user.
     This triggers the core workout generation engine.
     """
-    # ── Hard Reset: Delete any active plan block for the user ──
-    # Active plan = end_date >= today
-    active_plans = db.query(WorkoutPlan).filter(
-        WorkoutPlan.user_id == current_user.user_id,
-        WorkoutPlan.end_date >= date.today()
-    ).all()
-    
-    for ap in active_plans:
-        db.delete(ap)
-    db.commit()
+
 
     try:
         plan = generate_workout_plan(
@@ -54,7 +45,21 @@ def generate_plan(
             duration_days=request.duration_days,
         )
     except ValueError as e:
+        db.rollback()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+    # ── Hard Reset: Delete old active plan blocks for the user ──
+    # Active plan = end_date >= today
+    # We exclude the newly generated plan (plan.plan_id)
+    active_plans = db.query(WorkoutPlan).filter(
+        WorkoutPlan.user_id == current_user.user_id,
+        WorkoutPlan.end_date >= date.today(),
+        WorkoutPlan.plan_id != plan.plan_id
+    ).all()
+    
+    for ap in active_plans:
+        db.delete(ap)
+    db.commit()
 
     # Build summary
     daily_workouts = db.query(DailyWorkout).filter(DailyWorkout.plan_id == plan.plan_id).all()
@@ -481,7 +486,19 @@ def adaptive_regenerate(
             duration_days=request.duration_days,
         )
     except ValueError as e:
+        db.rollback()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+    # Delete old active plans
+    active_plans = db.query(WorkoutPlan).filter(
+        WorkoutPlan.user_id == current_user.user_id,
+        WorkoutPlan.end_date >= date.today(),
+        WorkoutPlan.plan_id != plan.plan_id
+    ).all()
+    
+    for ap in active_plans:
+        db.delete(ap)
+    db.commit()
 
     daily_workouts = db.query(DailyWorkout).filter(DailyWorkout.plan_id == plan.plan_id).all()
     workout_days = sum(1 for d in daily_workouts if d.day_type != "Rest")

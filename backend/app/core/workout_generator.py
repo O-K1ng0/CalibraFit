@@ -226,16 +226,25 @@ def select_exercises_for_muscles(
 def build_daily_routine(
     exercises: list[Exercise],
     fitness_experience: str,
+    target_exercises_per_day: Optional[int] = None,
 ) -> list[dict]:
     """
     Build a daily routine JSON structure from selected exercises,
-    with sets/reps scaled to the user's fitness experience.
+    with sets/reps scaled to the user's fitness experience and dynamically scaled volume.
     """
     config = EXPERIENCE_CONFIG.get(fitness_experience, EXPERIENCE_CONFIG["beginner"])
     routine = []
+    
+    # Dynamic Volume Scaling
+    volume_multiplier = 1.0
+    if target_exercises_per_day and len(exercises) < target_exercises_per_day:
+        volume_multiplier = target_exercises_per_day / max(1, len(exercises))
 
     for ex in exercises:
-        sets = random.randint(*config["sets_range"])
+        base_sets = random.randint(*config["sets_range"])
+        # Scale sets based on volume multiplier and cap at 6
+        sets = min(6, round(base_sets * volume_multiplier))
+        
         reps = random.randint(*config["reps_range"])
         routine.append({
             "exercise_id": ex.exercise_id,
@@ -310,8 +319,8 @@ def generate_workout_plan(
     user_notes = ""
     if profile.goals:
         user_notes += " ".join(profile.goals).lower()
-    if medical and medical.medical_notes:
-        user_notes += " " + medical.medical_notes.lower()
+    if medical:
+        user_notes += " " + (medical.medical_notes or "").lower()
         
     if "full body" in user_notes or "fullbody" in user_notes:
         split = [["full_body"]] * weekly_frequency
@@ -390,15 +399,19 @@ def generate_workout_plan(
                     unique_muscles.append(m)
 
             # Select exercises for the day
+            target_exercises_per_day = config["exercises_per_day"]
             day_exercises = select_exercises_for_muscles(
                 unique_muscles,
                 filtered_exercises,
                 strain_areas_to_avoid,
-                config["exercises_per_day"],
+                target_exercises_per_day,
             )
+            
+            if len(day_exercises) < 2:
+                raise ValueError(f"No suitable exercises found for your equipment and medical constraints on a {day_type} day. Please expand your equipment list or loosen constraints.")
 
             # Build the routine
-            routine = build_daily_routine(day_exercises, fitness_experience)
+            routine = build_daily_routine(day_exercises, fitness_experience, target_exercises_per_day)
             day_type = " + ".join(day_type_parts).title()
 
             daily = DailyWorkout(
