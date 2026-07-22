@@ -37,6 +37,11 @@ def get_password_hash(password: str) -> str:
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create a JWT access token with optional custom expiry."""
     to_encode = data.copy()
+    
+    # Ensure standard JWT compliance: 'sub' MUST be a string
+    if "sub" in to_encode:
+        to_encode["sub"] = str(to_encode["sub"])
+        
     expire = datetime.now(timezone.utc) + (
         expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     )
@@ -64,17 +69,29 @@ async def get_current_user(
 ) -> User:
     """FastAPI dependency: extract current user from JWT token."""
     payload = decode_access_token(token)
-    user_id: int = payload.get("sub")
-    if user_id is None:
+    user_id_str = payload.get("sub")
+    
+    if user_id_str is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+        
+    try:
+        user_id = int(user_id_str)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token subject",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
     user = db.query(User).filter(User.user_id == user_id).first()
     if user is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found",
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found or database was reset",
+            headers={"WWW-Authenticate": "Bearer"},
         )
     return user
