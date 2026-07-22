@@ -6,7 +6,7 @@ import Link from "next/link";
 import MedicalHistoryStep from "@/components/OnboardingSteps/MedicalHistoryStep";
 import {
   getFullProfile, updateProfile, updateMedicalHistory,
-  generatePlan, isAuthenticated,
+  generatePlan, isAuthenticated, changePassword
 } from "@/lib/api";
 
 const TABS = [
@@ -14,6 +14,7 @@ const TABS = [
   { id: "medical", label: "Medical", icon: "🩺" },
   { id: "equipment", label: "Equipment", icon: "🏠" },
   { id: "schedule", label: "Schedule", icon: "📅" },
+  { id: "security", label: "Security", icon: "🔒" },
 ];
 
 const EQUIPMENT_LIST = [
@@ -37,6 +38,12 @@ export default function ProfilePage() {
   // Editable copies
   const [editProfile, setEditProfile] = useState({});
   const [editMedical, setEditMedical] = useState({});
+
+  // Password state
+  const [passwords, setPasswords] = useState({ current: "", new: "", confirm: "" });
+  const [passError, setPassError] = useState("");
+  const [passSuccess, setPassSuccess] = useState(false);
+  const [changingPass, setChangingPass] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -87,6 +94,33 @@ export default function ProfilePage() {
       console.error("Plan generation error:", err);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPassError("");
+    setPassSuccess(false);
+    
+    if (passwords.new !== passwords.confirm) {
+      setPassError("New passwords do not match.");
+      return;
+    }
+    if (passwords.new.length < 8) {
+      setPassError("New password must be at least 8 characters long.");
+      return;
+    }
+
+    setChangingPass(true);
+    try {
+      await changePassword(passwords.current, passwords.new);
+      setPassSuccess(true);
+      setPasswords({ current: "", new: "", confirm: "" });
+      setTimeout(() => setPassSuccess(false), 3000);
+    } catch (err) {
+      setPassError(err.response?.data?.detail || "Failed to change password.");
+    } finally {
+      setChangingPass(false);
     }
   };
 
@@ -388,6 +422,67 @@ export default function ProfilePage() {
               <label className="input-label">Preferred Time</label>
               <p className="text-white font-medium capitalize">{profile.preferred_time || "morning"}</p>
             </div>
+          </div>
+        )}
+
+        {/* Security */}
+        {activeTab === "security" && (
+          <div className="space-y-4 max-w-sm">
+            <h2 className="text-lg font-semibold text-white mb-4">Change Password</h2>
+            
+            {passError && (
+              <div className="p-3 rounded-lg bg-danger-500/10 border border-danger-500/20 text-danger-400 text-sm">
+                {passError}
+              </div>
+            )}
+            {passSuccess && (
+              <div className="p-3 rounded-lg bg-success-500/10 border border-success-500/20 text-success-400 text-sm">
+                ✓ Password changed successfully
+              </div>
+            )}
+
+            <form onSubmit={handleChangePassword} className="space-y-4">
+              <div>
+                <label className="input-label" htmlFor="currentPassword">Current Password</label>
+                <input
+                  id="currentPassword"
+                  type="password"
+                  required
+                  className="input-field"
+                  value={passwords.current}
+                  onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="input-label" htmlFor="newPassword">New Password</label>
+                <input
+                  id="newPassword"
+                  type="password"
+                  required
+                  className="input-field"
+                  value={passwords.new}
+                  onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="input-label" htmlFor="confirmPassword">Confirm New Password</label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  required
+                  className="input-field"
+                  value={passwords.confirm}
+                  onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={changingPass}
+                className="btn-primary w-full mt-2"
+              >
+                {changingPass ? "Updating..." : "Update Password"}
+              </button>
+            </form>
           </div>
         )}
       </div>

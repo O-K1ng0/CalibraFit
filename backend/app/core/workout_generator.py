@@ -66,6 +66,7 @@ CONTRAINDICATION_STRAIN_MAP = {
     "lower_back_pain": ["strains_lower_back", "spinal_compression", "hip_flexor_strain"],
     "wrist_injury": ["impacts_wrists", "grip_strain"],
     "heart_condition": ["high_intensity", "excessive_cardio"],
+    "hypertension": ["high_intensity", "overhead_strain"],
     "hip_replacement": ["impacts_hips", "deep_hip_flexion"],
     "neck_issues": ["strains_neck", "cervical_compression"],
     "ankle_injury": ["impacts_ankles", "high_impact"],
@@ -304,6 +305,17 @@ def generate_workout_plan(
 
     # ── Step 4: Determine split template ──
     split = SPLIT_TEMPLATES.get(weekly_frequency, SPLIT_TEMPLATES[3])
+    
+    # Check for "full body" override in user goals and medical notes
+    user_notes = ""
+    if profile.goals:
+        user_notes += " ".join(profile.goals).lower()
+    if medical and medical.medical_notes:
+        user_notes += " " + medical.medical_notes.lower()
+        
+    if "full body" in user_notes or "fullbody" in user_notes:
+        split = [["full_body"]] * weekly_frequency
+        
     config = EXPERIENCE_CONFIG.get(fitness_experience, EXPERIENCE_CONFIG["beginner"])
 
     # ── Step 5: Determine workout/rest day schedule ──

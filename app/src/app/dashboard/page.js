@@ -141,9 +141,6 @@ export default function DashboardPage() {
           <p className="text-sm text-slate-500 mt-1 italic">&quot;{quote}&quot;</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/profile" className="btn-secondary text-sm py-2 px-4 hidden sm:block">
-            Profile
-          </Link>
           <button onClick={logout} className="text-xs text-slate-500 hover:text-slate-300 transition-colors">
             Logout
           </button>

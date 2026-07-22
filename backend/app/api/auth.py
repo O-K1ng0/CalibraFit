@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.db.models import User
-from app.schemas.user import UserCreate, UserLogin, UserResponse, Token
+from app.schemas.user import UserCreate, UserLogin, UserResponse, Token, ChangePasswordRequest
 from app.core.security import (
     get_password_hash, verify_password,
     create_access_token, get_current_user,
@@ -79,3 +79,20 @@ def login_form(
 def get_me(current_user: User = Depends(get_current_user)):
     """Get current authenticated user's info."""
     return current_user
+
+@router.post("/change-password")
+def change_password(
+    request: ChangePasswordRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Change the user's password."""
+    if not verify_password(request.current_password, current_user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Incorrect current password",
+        )
+    
+    current_user.password_hash = get_password_hash(request.new_password)
+    db.commit()
+    return {"message": "Password updated successfully"}

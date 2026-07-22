@@ -51,6 +51,7 @@ function deriveContraindicationFlags(medicalData) {
   if (diseases.includes("Heart disease")) flags.add("heart_condition");
   if (diseases.includes("Arthritis")) flags.add("joint_pain");
   if (diseases.includes("Osteoporosis")) flags.add("spinal_issues");
+  if (diseases.includes("Hypertension")) flags.add("hypertension");
 
   // Parse free-text notes for injury/pain keywords
   const noteKeywords = {

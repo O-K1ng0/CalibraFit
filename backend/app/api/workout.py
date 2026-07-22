@@ -35,6 +35,17 @@ def generate_plan(
     Generate a personalized workout plan for the authenticated user.
     This triggers the core workout generation engine.
     """
+    # ── Hard Reset: Delete any active plan block for the user ──
+    # Active plan = end_date >= today
+    active_plans = db.query(WorkoutPlan).filter(
+        WorkoutPlan.user_id == current_user.user_id,
+        WorkoutPlan.end_date >= date.today()
+    ).all()
+    
+    for ap in active_plans:
+        db.delete(ap)
+    db.commit()
+
     try:
         plan = generate_workout_plan(
             db=db,

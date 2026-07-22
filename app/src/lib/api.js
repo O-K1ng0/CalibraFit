@@ -60,6 +60,14 @@ export async function login(email, password) {
   return res.data;
 }
 
+export async function changePassword(current_password, new_password) {
+  const res = await api.post("/api/auth/change-password", {
+    current_password,
+    new_password,
+  });
+  return res.data;
+}
+
 export async function getMe() {
   const res = await api.get("/api/auth/me");
   return res.data;
