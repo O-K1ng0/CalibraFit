@@ -34,6 +34,9 @@ export default function ProfilePage() {
   const [saved, setSaved] = useState(false);
   const [editing, setEditing] = useState(false);
   const [planDuration, setPlanDuration] = useState(30);
+  const [isRegenerating, setIsRegenerating] = useState(false);
+  const [regenError, setRegenError] = useState("");
+  const [regenSuccess, setRegenSuccess] = useState(false);
 
   // Editable copies
   const [editProfile, setEditProfile] = useState({});
@@ -86,14 +89,22 @@ export default function ProfilePage() {
   };
 
   const handleRegenerate = async () => {
-    setSaving(true);
+    setIsRegenerating(true);
+    setRegenError("");
+    setRegenSuccess(false);
     try {
       await generatePlan({ duration_days: planDuration });
-      router.push("/dashboard");
+      setRegenSuccess(true);
+      await loadProfile();
+      setTimeout(() => {
+        setRegenSuccess(false);
+        router.push("/dashboard");
+      }, 1500);
     } catch (err) {
       console.error("Plan generation error:", err);
+      setRegenError(err.response?.data?.detail || "Failed to generate plan.");
     } finally {
-      setSaving(false);
+      setIsRegenerating(false);
     }
   };
 
@@ -493,19 +504,43 @@ export default function ProfilePage() {
           <p className="text-sm text-slate-400 mb-3">
             Want to refresh your routine or apply recent profile changes?
           </p>
+          
+          {regenError && (
+            <div className="mb-3 p-3 rounded-lg bg-danger-500/10 border border-danger-500/20 text-danger-400 text-sm">
+              {regenError}
+            </div>
+          )}
+          {regenSuccess && (
+            <div className="mb-3 p-3 rounded-lg bg-success-500/10 border border-success-500/20 text-success-400 text-sm">
+              ✓ Plan regenerated successfully!
+            </div>
+          )}
+
           <div className="flex gap-3 items-center">
             <select
               className="input-field flex-shrink-0"
               style={{ width: "auto", minWidth: "140px" }}
               value={planDuration}
               onChange={(e) => setPlanDuration(parseInt(e.target.value))}
+              disabled={isRegenerating}
             >
               <option value={30}>30-Day Plan</option>
               <option value={60}>60-Day Plan</option>
               <option value={90}>90-Day Plan</option>
             </select>
-            <button onClick={handleRegenerate} disabled={saving} className="btn-primary flex-1">
-              {saving ? "Generating..." : "Regenerate Plan 🔄"}
+            <button 
+              onClick={handleRegenerate} 
+              disabled={isRegenerating || saving} 
+              className="btn-primary flex-1 relative"
+            >
+              {isRegenerating ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-spin w-4 h-4 border-2 border-white/20 border-t-white rounded-full"></span>
+                  Generating Plan...
+                </span>
+              ) : (
+                "Regenerate Plan 🔄"
+              )}
             </button>
           </div>
         </div>

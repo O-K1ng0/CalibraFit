@@ -4,9 +4,12 @@ Generate plans, fetch daily workouts, log completions, and track progress.
 """
 
 from datetime import date, datetime, timedelta
+import logging
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func
+
+logger = logging.getLogger(__name__)
 
 from app.db.database import get_db
 from app.db.models import User, WorkoutPlan, DailyWorkout, CompletedWorkout, WeeklyFeedback, UserProfile, MedicalHistory
@@ -57,9 +60,12 @@ def generate_plan(
         WorkoutPlan.plan_id != plan.plan_id
     ).all()
     
-    for ap in active_plans:
-        db.delete(ap)
-    db.commit()
+    if not active_plans:
+        logger.info("No active plan to delete for user %s. Proceeding.", current_user.user_id)
+    else:
+        for ap in active_plans:
+            db.delete(ap)
+        db.commit()
 
     # Build summary
     daily_workouts = db.query(DailyWorkout).filter(DailyWorkout.plan_id == plan.plan_id).all()
@@ -496,9 +502,12 @@ def adaptive_regenerate(
         WorkoutPlan.plan_id != plan.plan_id
     ).all()
     
-    for ap in active_plans:
-        db.delete(ap)
-    db.commit()
+    if not active_plans:
+        logger.info("No active plan to delete for user %s. Proceeding.", current_user.user_id)
+    else:
+        for ap in active_plans:
+            db.delete(ap)
+        db.commit()
 
     daily_workouts = db.query(DailyWorkout).filter(DailyWorkout.plan_id == plan.plan_id).all()
     workout_days = sum(1 for d in daily_workouts if d.day_type != "Rest")
