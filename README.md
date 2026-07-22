@@ -62,6 +62,7 @@ CalibraFit/
 - 📊 **Progress Tracking** - Streak counters, completion logs, visual progress
 - 🔒 **Secure** - JWT auth, encrypted medical data, HIPAA-aware design
 
+
 ## License
 
 Private - All rights reserved.
