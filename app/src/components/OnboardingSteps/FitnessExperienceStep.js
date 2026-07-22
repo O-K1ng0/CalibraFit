@@ -91,11 +91,12 @@ export default function FitnessExperienceStep({ data, onUpdate }) {
 
       {/* Optional Metrics */}
       <div>
-        <label className="input-label">Optional Health Metrics</label>
+        <h3 className="input-label mb-3">Optional Health Metrics</h3>
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <p className="text-[10px] text-slate-500 mb-1">Resting HR (bpm)</p>
+            <label className="block text-[10px] text-slate-500 mb-1" htmlFor="restingHr">Resting HR (bpm)</label>
             <input
+              id="restingHr"
               type="number"
               className="input-field text-sm py-2"
               placeholder="65"
@@ -106,8 +107,9 @@ export default function FitnessExperienceStep({ data, onUpdate }) {
             />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 mb-1">Daily Steps</p>
+            <label className="block text-[10px] text-slate-500 mb-1" htmlFor="dailySteps">Daily Steps</label>
             <input
+              id="dailySteps"
               type="number"
               className="input-field text-sm py-2"
               placeholder="8000"
@@ -117,8 +119,9 @@ export default function FitnessExperienceStep({ data, onUpdate }) {
             />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 mb-1">Body Fat %</p>
+            <label className="block text-[10px] text-slate-500 mb-1" htmlFor="bodyFat">Body Fat %</label>
             <input
+              id="bodyFat"
               type="number"
               className="input-field text-sm py-2"
               placeholder="20"

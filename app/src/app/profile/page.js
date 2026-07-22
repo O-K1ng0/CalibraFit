@@ -152,11 +152,10 @@ export default function ProfilePage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${
-              activeTab === tab.id
-                ? "bg-primary-600 text-white shadow-lg"
-                : "text-slate-400 hover:text-white"
-            }`}
+            className={`flex-1 py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${activeTab === tab.id
+              ? "bg-primary-600 text-white shadow-lg"
+              : "text-slate-400 hover:text-white"
+              }`}
           >
             <span className="mr-1">{tab.icon}</span> {tab.label}
           </button>
@@ -175,27 +174,27 @@ export default function ProfilePage() {
                 <p className="text-white font-medium">{user.full_name || "—"}</p>
               </div>
               <div>
-                <label className="input-label">Age</label>
+                <label className="input-label" htmlFor="profileAge">Age</label>
                 {editing ? (
-                  <input type="number" className="input-field" value={editProfile.age || ""}
+                  <input id="profileAge" type="number" className="input-field" value={editProfile.age || ""}
                     onChange={(e) => setEditProfile({ ...editProfile, age: parseInt(e.target.value) || "" })} />
                 ) : (
                   <p className="text-white font-medium">{profile.age || "—"}</p>
                 )}
               </div>
               <div>
-                <label className="input-label">Height</label>
+                <label className="input-label" htmlFor="profileHeight">Height</label>
                 {editing ? (
-                  <input type="number" className="input-field" value={editProfile.height_cm || ""}
+                  <input id="profileHeight" type="number" className="input-field" value={editProfile.height_cm || ""}
                     onChange={(e) => setEditProfile({ ...editProfile, height_cm: parseFloat(e.target.value) || "" })} />
                 ) : (
                   <p className="text-white font-medium">{profile.height_cm ? `${profile.height_cm} cm` : "—"}</p>
                 )}
               </div>
               <div>
-                <label className="input-label">Weight</label>
+                <label className="input-label" htmlFor="profileWeight">Weight</label>
                 {editing ? (
-                  <input type="number" className="input-field" value={editProfile.weight_kg || ""}
+                  <input id="profileWeight" type="number" className="input-field" value={editProfile.weight_kg || ""}
                     onChange={(e) => setEditProfile({ ...editProfile, weight_kg: parseFloat(e.target.value) || "" })} />
                 ) : (
                   <p className="text-white font-medium">{profile.weight_kg ? `${profile.weight_kg} kg` : "—"}</p>
@@ -285,10 +284,9 @@ export default function ProfilePage() {
                   {["home", "gym"].map((env) => (
                     <button key={env} type="button"
                       onClick={() => setEditProfile({ ...editProfile, training_environment: env })}
-                      className={`p-4 rounded-xl border text-center transition-all ${
-                        editProfile.training_environment === env
-                          ? "bg-primary-600/20 border-primary-500/40" : "bg-white/5 border-white/10"
-                      }`}>
+                      className={`p-4 rounded-xl border text-center transition-all ${editProfile.training_environment === env
+                        ? "bg-primary-600/20 border-primary-500/40" : "bg-white/5 border-white/10"
+                        }`}>
                       <span className="text-2xl block mb-1">{env === "home" ? "🏠" : "🏢"}</span>
                       <span className="capitalize text-sm text-white">{env}</span>
                     </button>
@@ -313,9 +311,8 @@ export default function ProfilePage() {
                           available_equipment: has ? current.filter(e => e !== eq) : [...current, eq]
                         });
                       }}
-                      className={`flex items-center gap-2 p-3 rounded-xl border text-sm transition-all ${
-                        has ? "bg-primary-600/15 border-primary-500/30 text-white" : "bg-white/5 border-white/10 text-slate-500"
-                      } ${editing ? "cursor-pointer hover:bg-white/8" : "cursor-default"}`}>
+                      className={`flex items-center gap-2 p-3 rounded-xl border text-sm transition-all ${has ? "bg-primary-600/15 border-primary-500/30 text-white" : "bg-white/5 border-white/10 text-slate-500"
+                        } ${editing ? "cursor-pointer hover:bg-white/8" : "cursor-default"}`}>
                       {has && <span className="text-primary-400">✓</span>}
                       <span className="capitalize">{eq.replace(/_/g, " ")}</span>
                     </button>
@@ -331,10 +328,10 @@ export default function ProfilePage() {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold text-white mb-4">Workout Schedule</h2>
             <div>
-              <label className="input-label">Weekly Frequency</label>
+              <label className="input-label" htmlFor="profileWeeklyFreq">Weekly Frequency</label>
               {editing ? (
                 <div className="flex items-center gap-4">
-                  <input type="range" min={1} max={7}
+                  <input id="profileWeeklyFreq" type="range" min={1} max={7}
                     value={editProfile.weekly_frequency || 3}
                     onChange={(e) => setEditProfile({ ...editProfile, weekly_frequency: parseInt(e.target.value) })}
                     className="flex-1" />
@@ -359,9 +356,8 @@ export default function ProfilePage() {
                           preferred_workout_days: selected ? current.filter(d => d !== day) : [...current, day]
                         });
                       }}
-                      className={`py-3 rounded-xl text-center text-xs font-medium transition-all ${
-                        selected ? "bg-primary-600 text-white" : "bg-white/5 text-slate-500 border border-white/10"
-                      } ${editing ? "cursor-pointer" : "cursor-default"}`}>
+                      className={`py-3 rounded-xl text-center text-xs font-medium transition-all ${selected ? "bg-primary-600 text-white" : "bg-white/5 text-slate-500 border border-white/10"
+                        } ${editing ? "cursor-pointer" : "cursor-default"}`}>
                       {day.slice(0, 3)}
                     </button>
                   );

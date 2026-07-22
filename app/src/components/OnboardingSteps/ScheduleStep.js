@@ -43,12 +43,13 @@ export default function ScheduleStep({ data, onUpdate }) {
       {/* Weekly Frequency */}
       <div className="glass-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <label className="input-label mb-0">Workouts Per Week</label>
+          <label className="input-label mb-0" htmlFor="weeklyFreq">Workouts Per Week</label>
           <span className="text-2xl font-bold text-primary-400">
             {data.weekly_frequency || 3}
           </span>
         </div>
         <input
+          id="weeklyFreq"
           type="range"
           min={1}
           max={7}
