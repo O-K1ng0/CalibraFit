@@ -10,7 +10,10 @@ The heart of the application. Generates personalized 30-day workout plans by:
 6. Scaling sets/reps based on fitness experience
 """
 
+import logging
 import random
+
+logger = logging.getLogger(__name__)
 from datetime import date, timedelta
 from typing import Optional
 from sqlalchemy.orm import Session
@@ -195,12 +198,13 @@ def select_exercises_for_muscles(
         if remaining <= 0:
             break
 
-        # Get exercises targeting this muscle
+        # Get exercises targeting this muscle and shuffle for variety
         muscle_exercises = [
             ex for ex in all_exercises
             if ex.target_muscle_primary.lower() == muscle.lower()
             and ex.exercise_id not in selected_ids
         ]
+        random.shuffle(muscle_exercises)
 
         count = min(exercises_per_muscle, remaining)
 
@@ -297,18 +301,31 @@ def generate_workout_plan(
     contraindication_flags = medical.contraindication_flags if medical else []
     strain_areas_to_avoid = get_strain_areas_to_avoid(contraindication_flags)
 
+    # Diagnostic logging: show the engine's active safety state
+    logger.info("DEBUG: Active contraindication flags: %s", contraindication_flags)
+    logger.info("DEBUG: Strain areas to avoid: %s", strain_areas_to_avoid)
+    print(f"DEBUG: Active safety filters applied: {contraindication_flags}")
+    print(f"DEBUG: Strain areas blocked: {strain_areas_to_avoid}")
+
     # ── Step 3: Query and filter exercises ──
     all_exercises = db.query(Exercise).all()
+    print(f"DEBUG: Total exercises in database: {len(all_exercises)}")
 
     # Filter by equipment and environment
     filtered_exercises = filter_exercises_by_equipment(
         all_exercises, available_equipment, training_environment
     )
+    print(f"DEBUG: After equipment filter: {len(filtered_exercises)} exercises")
 
     # Filter by difficulty
     filtered_exercises = filter_exercises_by_difficulty(
         filtered_exercises, fitness_experience
     )
+    print(f"DEBUG: After difficulty filter: {len(filtered_exercises)} exercises")
+
+    # Shuffle the pool so each regeneration picks different exercises
+    random.shuffle(filtered_exercises)
+    print(f"DEBUG: Total exercises available after equipment/medical filtering: {len(filtered_exercises)}")
 
     if not filtered_exercises:
         raise ValueError("No suitable exercises found for your equipment and experience level.")

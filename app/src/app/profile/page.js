@@ -88,11 +88,32 @@ export default function ProfilePage() {
     }
   };
 
+  // Track whether edits have been made since last save
+  const hasUnsavedChanges = () => {
+    if (!profileData) return false;
+    const origProfile = profileData.profile || {};
+    const origMedical = profileData.medical_history || {};
+    return (
+      JSON.stringify(editProfile) !== JSON.stringify(origProfile) ||
+      JSON.stringify(editMedical) !== JSON.stringify(origMedical)
+    );
+  };
+
   const handleRegenerate = async () => {
     setIsRegenerating(true);
     setRegenError("");
     setRegenSuccess(false);
     try {
+      // Auto-save any unsaved profile/medical changes before regenerating
+      if (hasUnsavedChanges()) {
+        console.log("Auto-saving unsaved profile changes before regeneration...");
+        await updateProfile(editProfile);
+        if (editMedical && Object.keys(editMedical).length > 0) {
+          await updateMedicalHistory(editMedical);
+        }
+        await loadProfile();
+      }
+
       await generatePlan({ duration_days: planDuration });
       setRegenSuccess(true);
       await loadProfile();
