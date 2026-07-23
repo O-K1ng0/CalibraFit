@@ -5,6 +5,7 @@ Generate plans, fetch daily workouts, log completions, and track progress.
 
 from datetime import date, datetime, timedelta
 import logging
+import traceback
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -47,8 +48,9 @@ def generate_plan(
             start_date=request.start_date,
             duration_days=request.duration_days,
         )
-    except ValueError as e:
+    except Exception as e:
         db.rollback()
+        traceback.print_exc()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
     # ── Hard Reset: Delete old active plan blocks for the user ──
@@ -491,8 +493,9 @@ def adaptive_regenerate(
             start_date=request.start_date,
             duration_days=request.duration_days,
         )
-    except ValueError as e:
+    except Exception as e:
         db.rollback()
+        traceback.print_exc()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
     # Delete old active plans

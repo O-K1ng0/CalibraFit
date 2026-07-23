@@ -237,13 +237,14 @@ def build_daily_routine(
     
     # Dynamic Volume Scaling
     volume_multiplier = 1.0
-    if target_exercises_per_day and len(exercises) < target_exercises_per_day:
-        volume_multiplier = target_exercises_per_day / max(1, len(exercises))
+    if target_exercises_per_day and len(exercises) > 0 and len(exercises) < target_exercises_per_day:
+        volume_multiplier = target_exercises_per_day / len(exercises)
 
     for ex in exercises:
         base_sets = random.randint(*config["sets_range"])
-        # Scale sets based on volume multiplier and cap at 6
-        sets = min(6, round(base_sets * volume_multiplier))
+        # Scale sets based on volume multiplier, cast to int for SQLAlchemy, and cap at 6
+        target_sets = int(round(base_sets * volume_multiplier))
+        sets = min(6, target_sets)
         
         reps = random.randint(*config["reps_range"])
         routine.append({
@@ -407,12 +408,14 @@ def generate_workout_plan(
                 target_exercises_per_day,
             )
             
+            # Resolve the day label before using it in error messages
+            day_type = " + ".join(day_type_parts).title()
+
             if len(day_exercises) < 2:
-                raise ValueError(f"No suitable exercises found for your equipment and medical constraints on a {day_type} day. Please expand your equipment list or loosen constraints.")
+                raise ValueError(f"Not enough safe exercises found for your equipment and medical constraints on a '{day_type}' day. Please expand your equipment list or adjust constraints.")
 
             # Build the routine
             routine = build_daily_routine(day_exercises, fitness_experience, target_exercises_per_day)
-            day_type = " + ".join(day_type_parts).title()
 
             daily = DailyWorkout(
                 plan_id=plan.plan_id,
