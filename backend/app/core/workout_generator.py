@@ -317,11 +317,11 @@ def generate_workout_plan(
     split = SPLIT_TEMPLATES.get(weekly_frequency, SPLIT_TEMPLATES[3])
     
     # Check for "full body" override in user goals and medical notes
-    user_notes = ""
-    if profile.goals:
-        user_notes += " ".join(profile.goals).lower()
-    if medical:
-        user_notes += " " + (medical.medical_notes or "").lower()
+    user_goals = getattr(profile, 'goals', '') or ""
+    if isinstance(user_goals, list):
+        user_goals = " ".join(user_goals)
+    med_notes = getattr(medical, 'medical_notes', '') or getattr(profile, 'medical_notes', '') or ""
+    user_notes = f"{user_goals} {med_notes}".lower()
         
     if "full body" in user_notes or "fullbody" in user_notes:
         split = [["full_body"]] * weekly_frequency
